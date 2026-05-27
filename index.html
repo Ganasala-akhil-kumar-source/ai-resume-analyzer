@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Resume Analyzer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">RA</div>
+          <div>
+            <h1>AI Resume Analyzer</h1>
+            <p>Photo based resume screening</p>
+          </div>
+        </div>
+
+        <section class="panel">
+          <div class="panel-title">
+            <h2>Target Role</h2>
+            <span>Job fit</span>
+          </div>
+          <label for="role">Role title</label>
+          <input id="role" type="text" value="Frontend Developer" />
+
+          <label for="jobDescription">Job description</label>
+          <textarea id="jobDescription" rows="9">Looking for a frontend developer skilled in HTML, CSS, JavaScript, React, APIs, Git, responsive design, accessibility, testing, performance optimization, teamwork, and problem solving.</textarea>
+        </section>
+
+        <section class="panel">
+          <div class="panel-title">
+            <h2>Resume Photo</h2>
+            <span>OCR input</span>
+          </div>
+          <label class="file-drop" for="resumePhoto">
+            <input id="resumePhoto" type="file" accept="image/png,image/jpeg,image/webp" />
+            <strong class="upload-icon">+</strong>
+            <span>Upload resume photo</span>
+            <small>.jpg, .png, .webp</small>
+          </label>
+
+          <div id="photoPreview" class="photo-preview empty">
+            <span>No resume photo added</span>
+          </div>
+          <p id="photoNote" class="input-note">
+            Upload a clear resume image. The analyzer will read text from the photo.
+          </p>
+
+          <div class="ocr-status">
+            <div class="progress-track">
+              <span id="ocrProgress"></span>
+            </div>
+            <p id="ocrStatus">OCR engine ready</p>
+          </div>
+
+          <div class="button-row">
+            <button id="analyzeBtn" type="button">Analyze Photo</button>
+          </div>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Resume intelligence</p>
+            <h2 id="reportTitle">Analysis Report</h2>
+            <p class="topbar-copy">Upload a resume image to extract text, validate it, and compare it with the role.</p>
+          </div>
+          <button id="downloadBtn" type="button" class="ghost" disabled>Download Report</button>
+        </header>
+
+        <section class="score-band">
+          <div class="score-card">
+            <div class="score-ring" style="--score: 0">
+              <span id="scoreValue">0</span>
+            </div>
+            <div>
+              <p class="metric-label">Overall Match</p>
+              <h3 id="scoreLabel">Waiting for resume</h3>
+            </div>
+          </div>
+
+          <div class="metrics">
+            <article>
+              <span id="skillScore">0%</span>
+              <p>Skills match</p>
+            </article>
+            <article>
+              <span id="structureScore">0%</span>
+              <p>Resume quality</p>
+            </article>
+            <article>
+              <span id="atsScore">0%</span>
+              <p>ATS readiness</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="grid">
+          <article class="panel report-panel">
+            <div class="panel-head">
+              <h2>Matched Skills</h2>
+              <span id="matchedCount">0 found</span>
+            </div>
+            <div id="matchedSkills" class="tags muted-state">Run analysis to view matches.</div>
+          </article>
+
+          <article class="panel report-panel">
+            <div class="panel-head">
+              <h2>Missing Skills</h2>
+              <span id="missingCount">0 missing</span>
+            </div>
+            <div id="missingSkills" class="tags muted-state">Skills from the role appear here.</div>
+          </article>
+
+          <article class="panel report-panel wide">
+            <div class="panel-head">
+              <h2>Smart Suggestions</h2>
+              <span id="suggestionCount">0 tips</span>
+            </div>
+            <ul id="suggestions" class="suggestion-list">
+              <li>Upload a resume photo and click Analyze Photo.</li>
+            </ul>
+          </article>
+
+          <article class="panel report-panel">
+            <div class="panel-head">
+              <h2>Detected Sections</h2>
+              <span id="sectionCount">0 sections</span>
+            </div>
+            <div id="sections" class="section-list"></div>
+          </article>
+
+          <article class="panel report-panel">
+            <div class="panel-head">
+              <h2>Keyword Density</h2>
+              <span id="keywordCount">0 keywords</span>
+            </div>
+            <div id="keywords" class="keyword-list"></div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
